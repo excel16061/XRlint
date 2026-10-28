@@ -291,22 +291,6 @@ A-Frame examples. They are the reason the "after" columns above are optimistic.
 - **A-Frame only.** Three.js, Babylon.js and raw WebXR pages are not modelled. Only the
   JS-pattern rules apply to them.
 
-## Repository layout
-
-```
-xrlint/           analyzer package (scene.py, jsutil.py, rules.py, analyzer.py, report.py, cli.py,
-                  web.py + static/index.html for the web UI)
-tests/            unit tests (python3 -m unittest discover -s tests) and fixtures/ with labels.json
-eval/             evaluation scripts; results/ holds every number quoted above
-scripts/          fetch_corpora.sh (pinned commits), run_all.sh
-DEFENCE.md        notes for explaining and defending the project
-docs/             threat-model.md, limitations.md, related-work.md, methodology.md,
-                  design.md, rule-traceability.md
-```
-
-Tests: `python3 -m unittest discover -s tests` (54 tests). They are standard `unittest` classes, so
-`pytest` should collect them too (not verified here: pytest was not installable in my environment).
-
 ## References
 
 - C. Mukherjee, R. Mohamed, A. Arunasalam, H. Farrukh, Z. B. Celik. *Shadowed Realities: An
