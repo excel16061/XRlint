@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <a-entity id="cam" camera look-controls position="0 1.6 0"></a-entity>
+    <a-box class="ad" position="0 1 3"></a-box>
+  </a-scene>
+  <script>
+    var fakeCursor = document.createElement('a-entity');
+    fakeCursor.setAttribute('cursor', 'fuse: false');
+    fakeCursor.setAttribute('raycaster', 'objects: .ad');
+    fakeCursor.setAttribute('visible', false);
+    document.querySelector('#cam').appendChild(fakeCursor);
+  </script>
+</body>
+</html>

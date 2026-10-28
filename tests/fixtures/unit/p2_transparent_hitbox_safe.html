@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <script>
+    AFRAME.registerComponent('buy-button', {
+      init: function () {
+        this.el.addEventListener('click', function (evt) {
+          if (!evt.detail || !evt.detail.intersection) { return; }
+          console.log('purchase');
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <!-- Same layout, but the button is visible: the user can see what they click. -->
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor="fuse: false" raycaster="objects: .clickable" position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015"></a-entity>
+    </a-entity>
+    <a-box class="clickable" id="play" position="1 1.5 -3" color="#4CC3D9"></a-box>
+    <a-plane class="clickable" buy-button position="-1 1.5 -2" width="0.6" height="0.3"
+             color="#EF2D5E"></a-plane>
+  </a-scene>
+</body>
+</html>

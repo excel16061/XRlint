@@ -1,0 +1,782 @@
+{
+  "rule_level": {
+    "rows": [
+      {
+        "rule": "P10-render-order",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P12-occluded-interactive",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P13-scene-capture",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P14-gaze-override",
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P2-js-transparency",
+        "tp": 2,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P2-transparent-interactive",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P3-synthetic-input",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P4-same-space-overlap",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P5-unvalidated-click",
+        "tp": 5,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P6-dynamic-cursor",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P7-blind-spot",
+        "tp": 3,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      },
+      {
+        "rule": "P8-aux-screen-activity",
+        "tp": 1,
+        "fp": 0,
+        "fn": 0,
+        "precision": 1.0,
+        "recall": 1.0
+      }
+    ],
+    "micro_precision": 1.0,
+    "micro_recall": 1.0,
+    "tp": 20,
+    "fp": 0,
+    "fn": 0
+  },
+  "attack_pages": {
+    "rows": [
+      {
+        "page": "gcj.html",
+        "attack": "GCJ",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P5"
+        ],
+        "scored_properties": [
+          "P2",
+          "P5"
+        ],
+        "covered": [
+          "P2",
+          "P5"
+        ],
+        "missed": [],
+        "extra_rules": []
+      },
+      {
+        "page": "ccj.html",
+        "attack": "CCJ",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P5",
+          "P6",
+          "P7"
+        ],
+        "scored_properties": [
+          "P2",
+          "P5",
+          "P6",
+          "P7"
+        ],
+        "covered": [
+          "P2",
+          "P5",
+          "P6",
+          "P7"
+        ],
+        "missed": [],
+        "extra_rules": []
+      },
+      {
+        "page": "clickjacking.html",
+        "attack": "Clickjacking (rendering vs interaction order)",
+        "flagged": true,
+        "max_severity": "medium",
+        "paper_properties": [
+          "P4",
+          "P10",
+          "P11"
+        ],
+        "scored_properties": [
+          "P4",
+          "P10",
+          "P11"
+        ],
+        "covered": [
+          "P4",
+          "P11"
+        ],
+        "missed": [
+          "P10"
+        ],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "visual_overlapping.html",
+        "attack": "Visual Overlapping",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P3",
+          "P12"
+        ],
+        "scored_properties": [
+          "P3",
+          "P12"
+        ],
+        "covered": [
+          "P3",
+          "P12"
+        ],
+        "missed": [],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "sequential_rendering.html",
+        "attack": "Sequential Rendering",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P2",
+          "P3",
+          "P4",
+          "P10",
+          "P12"
+        ],
+        "scored_properties": [
+          "P2",
+          "P3",
+          "P4",
+          "P10",
+          "P12"
+        ],
+        "covered": [
+          "P3",
+          "P4"
+        ],
+        "missed": [
+          "P2",
+          "P10",
+          "P12"
+        ],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "bst.html",
+        "attack": "BST",
+        "flagged": true,
+        "max_severity": "medium",
+        "paper_properties": [
+          "P1",
+          "P7"
+        ],
+        "scored_properties": [
+          "P7"
+        ],
+        "covered": [
+          "P7"
+        ],
+        "missed": [],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "aad.html",
+        "attack": "AAD",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P8",
+          "P9"
+        ],
+        "scored_properties": [
+          "P8",
+          "P9"
+        ],
+        "covered": [
+          "P8",
+          "P9"
+        ],
+        "missed": [],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "input_forgery.html",
+        "attack": "Input Forgery",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P3",
+          "P5",
+          "P7"
+        ],
+        "scored_properties": [
+          "P3",
+          "P5",
+          "P7"
+        ],
+        "covered": [
+          "P3",
+          "P5"
+        ],
+        "missed": [
+          "P7"
+        ],
+        "extra_rules": []
+      },
+      {
+        "page": "malvertising.html",
+        "attack": "Malvertising",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P8",
+          "P9",
+          "P12"
+        ],
+        "scored_properties": [
+          "P2",
+          "P8",
+          "P9",
+          "P12"
+        ],
+        "covered": [
+          "P2",
+          "P8",
+          "P9"
+        ],
+        "missed": [
+          "P12"
+        ],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "dos_invisibility.html",
+        "attack": "DoS (invisibility)",
+        "flagged": false,
+        "max_severity": "low",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P4",
+          "P12"
+        ],
+        "scored_properties": [
+          "P2",
+          "P4",
+          "P12"
+        ],
+        "covered": [
+          "P2"
+        ],
+        "missed": [
+          "P4",
+          "P12"
+        ],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "dos_overriding.html",
+        "attack": "DoS through overriding",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P14"
+        ],
+        "scored_properties": [
+          "P2",
+          "P14"
+        ],
+        "covered": [
+          "P2",
+          "P14"
+        ],
+        "missed": [],
+        "extra_rules": [
+          "P5-unvalidated-click",
+          "P6-dynamic-cursor"
+        ]
+      },
+      {
+        "page": "object_erasure.html",
+        "attack": "Object Erasure",
+        "flagged": false,
+        "max_severity": "low",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P4"
+        ],
+        "scored_properties": [
+          "P2",
+          "P4"
+        ],
+        "covered": [],
+        "missed": [
+          "P2",
+          "P4"
+        ],
+        "extra_rules": [
+          "P5-unvalidated-click"
+        ]
+      },
+      {
+        "page": "intercepting_inputs.html",
+        "attack": "Intercepting User Inputs",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P12"
+        ],
+        "scored_properties": [
+          "P2",
+          "P3",
+          "P4",
+          "P5",
+          "P12"
+        ],
+        "covered": [
+          "P2",
+          "P3",
+          "P5"
+        ],
+        "missed": [
+          "P4",
+          "P12"
+        ],
+        "extra_rules": []
+      },
+      {
+        "page": "gui_switch.html",
+        "attack": "GUI Switch",
+        "flagged": true,
+        "max_severity": "high",
+        "paper_properties": [
+          "P1",
+          "P9",
+          "P13"
+        ],
+        "scored_properties": [
+          "P9",
+          "P13"
+        ],
+        "covered": [
+          "P9",
+          "P13"
+        ],
+        "missed": [],
+        "extra_rules": [
+          "P5-unvalidated-click",
+          "P8-aux-screen-activity"
+        ]
+      }
+    ],
+    "detected": 12,
+    "total": 14
+  },
+  "benign_pages": {
+    "rows": [
+      {
+        "page": "unit/p2_transparent_hitbox_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p3_synthetic_click_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p4_same_space_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p5_unvalidated_click_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p6_dynamic_cursor_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p7_blind_spot_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p8_aux_screen_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p10_render_order_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p12_occluded_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p13_capture_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "unit/p14_gaze_override_safe.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "controls/c1_gaming.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "controls/c2_shopping.html",
+        "alarm": false,
+        "alarm_rules": []
+      },
+      {
+        "page": "controls/c3_reading.html",
+        "alarm": true,
+        "alarm_rules": [
+          "P14-gaze-override"
+        ]
+      },
+      {
+        "page": "controls/c4_travel.html",
+        "alarm": false,
+        "alarm_rules": []
+      }
+    ],
+    "false_alarms": 1,
+    "total": 15
+  },
+  "property_coverage": {
+    "covered": 28,
+    "total": 40
+  },
+  "per_file": {
+    "unit/p2_transparent_hitbox_risky.html": {
+      "expected": [
+        "P2-transparent-interactive"
+      ],
+      "fired": [
+        "P2-transparent-interactive"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p2_transparent_hitbox_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p3_synthetic_click_risky.html": {
+      "expected": [
+        "P3-synthetic-input"
+      ],
+      "fired": [
+        "P3-synthetic-input"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p3_synthetic_click_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p4_same_space_risky.html": {
+      "expected": [
+        "P4-same-space-overlap"
+      ],
+      "fired": [
+        "P4-same-space-overlap"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p4_same_space_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p5_unvalidated_click_risky.html": {
+      "expected": [
+        "P5-unvalidated-click"
+      ],
+      "fired": [
+        "P5-unvalidated-click"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p5_unvalidated_click_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p6_dynamic_cursor_risky.html": {
+      "expected": [
+        "P2-js-transparency",
+        "P6-dynamic-cursor",
+        "P7-blind-spot"
+      ],
+      "fired": [
+        "P2-js-transparency",
+        "P6-dynamic-cursor",
+        "P7-blind-spot"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p6_dynamic_cursor_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p7_blind_spot_risky.html": {
+      "expected": [
+        "P7-blind-spot"
+      ],
+      "fired": [
+        "P7-blind-spot"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p7_blind_spot_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p8_aux_screen_risky.html": {
+      "expected": [
+        "P8-aux-screen-activity"
+      ],
+      "fired": [
+        "P8-aux-screen-activity"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p8_aux_screen_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p10_render_order_risky.html": {
+      "expected": [
+        "P10-render-order"
+      ],
+      "fired": [
+        "P10-render-order"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p10_render_order_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p12_occluded_risky.html": {
+      "expected": [
+        "P12-occluded-interactive"
+      ],
+      "fired": [
+        "P12-occluded-interactive"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p12_occluded_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p13_capture_risky.html": {
+      "expected": [
+        "P13-scene-capture"
+      ],
+      "fired": [
+        "P13-scene-capture"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p13_capture_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p14_gaze_override_risky.html": {
+      "expected": [
+        "P14-gaze-override"
+      ],
+      "fired": [
+        "P14-gaze-override"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "unit/p14_gaze_override_safe.html": {
+      "expected": [],
+      "fired": [],
+      "missed": [],
+      "unexpected": []
+    },
+    "controls/c1_gaming.html": {
+      "expected": [
+        "P2-js-transparency",
+        "P5-unvalidated-click"
+      ],
+      "fired": [
+        "P2-js-transparency",
+        "P5-unvalidated-click"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "controls/c2_shopping.html": {
+      "expected": [
+        "P5-unvalidated-click"
+      ],
+      "fired": [
+        "P5-unvalidated-click"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "controls/c3_reading.html": {
+      "expected": [
+        "P14-gaze-override",
+        "P5-unvalidated-click"
+      ],
+      "fired": [
+        "P14-gaze-override",
+        "P5-unvalidated-click"
+      ],
+      "missed": [],
+      "unexpected": []
+    },
+    "controls/c4_travel.html": {
+      "expected": [
+        "P5-unvalidated-click",
+        "P7-blind-spot"
+      ],
+      "fired": [
+        "P5-unvalidated-click",
+        "P7-blind-spot"
+      ],
+      "missed": [],
+      "unexpected": []
+    }
+  }
+}

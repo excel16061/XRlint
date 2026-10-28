@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <title>360 tour (benign)</title>
+  <script>
+    AFRAME.registerComponent('teleport-to', {
+      schema: {type: 'string'},
+      init: function () {
+        var data = this.data;
+        this.el.addEventListener('click', function () {
+          document.querySelector('#sky').setAttribute('src', data);
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor="fuse: true; fuseTimeout: 1500" raycaster="objects: .hotspot" position="0 0 -1"></a-entity>
+    </a-entity>
+    <a-sky id="sky" src="#plaza"></a-sky>
+    <a-sphere class="hotspot" teleport-to="#market" position="0 1.5 -4" radius="0.2" color="#FFC65D"></a-sphere>
+    <a-sphere class="hotspot" teleport-to="#harbour" position="4 1.5 0" radius="0.2" color="#FFC65D"></a-sphere>
+    <a-sphere class="hotspot" teleport-to="#castle" position="0 1.5 4" radius="0.2" color="#FFC65D"></a-sphere>
+  </a-scene>
+</body>
+</html>

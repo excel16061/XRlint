@@ -1,0 +1,19 @@
+{
+  "source": "c-frame/aframe-extras @ 676f362 2026-06-24",
+  "html_pages": 10,
+  "xr_pages": 9,
+  "standalone_js": 38,
+  "xr_pages_with_medium_or_high": 0,
+  "medium_or_high_findings": 0,
+  "files_with_medium_or_high": 0,
+  "note": "Scripts not referenced by any scanned HTML page (e.g. bundled app sources) are scanned standalone, so their findings count in files_with_medium_or_high but not in xr_pages_*.",
+  "findings_by_rule_and_severity": {
+    "P1-third-party-script|info": 13,
+    "P5-unvalidated-click|low": 2,
+    "P7-blind-spot|low": 2,
+    "P8-aux-screen-activity|low": 2,
+    "P9-mode-listener|info": 1
+  },
+  "xr_pages_alarmed_by_rule": {},
+  "errors": []
+}

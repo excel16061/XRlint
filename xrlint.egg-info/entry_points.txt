@@ -1,0 +1,3 @@
+[console_scripts]
+xrlint = xrlint.cli:main
+xrlint-web = xrlint.web:main

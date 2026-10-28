@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>XRLint</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --surface: #ffffff; --surface-2: #f0f2f5; --border: #dde1e7;
+    --text: #1b1f24; --muted: #5d6673; --accent: #3b5bdb; --accent-text: #ffffff;
+    --high: #c92a2a; --high-bg: #fff0f0; --med: #b35c00; --med-bg: #fff4e6;
+    --low: #1c6fb8; --low-bg: #e8f3fc; --info: #5d6673; --info-bg: #eef0f3;
+    --code-bg: #f4f5f7; --mark: #fff3bf;
+    --radius: 10px; --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111418; --surface: #1a1e24; --surface-2: #222830; --border: #2e3540;
+      --text: #e6e9ee; --muted: #9aa4b2; --accent: #6e8bff; --accent-text: #0d1117;
+      --high: #ff8787; --high-bg: #3a1d1f; --med: #ffb366; --med-bg: #3a2a17;
+      --low: #74c0fc; --low-bg: #16293a; --info: #9aa4b2; --info-bg: #252b33;
+      --code-bg: #14181d; --mark: #4a4220;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 960px; margin: 0 auto; padding: 24px 16px 64px; }
+  header h1 { margin: 0; font-size: 26px; letter-spacing: -0.01em; }
+  header h1 small { font-size: 13px; color: var(--muted); font-weight: 500; margin-left: 6px; }
+  header p { margin: 4px 0 0; color: var(--muted); }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+          padding: 16px; margin-top: 20px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--border); margin: -4px 0 14px; }
+  .tab { background: none; border: 0; border-bottom: 2px solid transparent; padding: 8px 12px;
+         color: var(--muted); font: inherit; cursor: pointer; }
+  .tab[aria-selected="true"] { color: var(--text); border-bottom-color: var(--accent); font-weight: 600; }
+  textarea { width: 100%; min-height: 240px; resize: vertical; padding: 10px; border-radius: 8px;
+             border: 1px solid var(--border); background: var(--code-bg); color: var(--text);
+             font: 13px/1.45 var(--mono); }
+  .drop { border: 2px dashed var(--border); border-radius: var(--radius); padding: 28px 16px;
+          text-align: center; color: var(--muted); }
+  .drop.over { border-color: var(--accent); background: var(--surface-2); }
+  .drop label { color: var(--accent); cursor: pointer; text-decoration: underline; }
+  .drop input { display: none; }
+  #fileList { list-style: none; padding: 0; margin: 12px 0 0; font: 13px var(--mono); color: var(--muted);
+              max-height: 140px; overflow: auto; }
+  .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-top: 14px; }
+  .row .spacer { flex: 1; }
+  button.primary, button.secondary { font: inherit; border-radius: 8px; padding: 8px 16px; cursor: pointer; }
+  button.primary { background: var(--accent); color: var(--accent-text); border: 0; font-weight: 600; }
+  button.primary:disabled { opacity: .6; cursor: progress; }
+  button.secondary { background: var(--surface-2); color: var(--text); border: 1px solid var(--border); }
+  select { font: inherit; padding: 6px 8px; border-radius: 8px; border: 1px solid var(--border);
+           background: var(--surface); color: var(--text); }
+  .note { color: var(--muted); font-size: 13px; }
+  .error { color: var(--high); background: var(--high-bg); border-radius: 8px; padding: 10px 12px; margin-top: 14px; }
+  .summary { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .chip { border-radius: 999px; padding: 3px 10px; font-size: 13px; font-weight: 600; }
+  .sev-high { color: var(--high); background: var(--high-bg); }
+  .sev-medium { color: var(--med); background: var(--med-bg); }
+  .sev-low { color: var(--low); background: var(--low-bg); }
+  .sev-info { color: var(--info); background: var(--info-bg); }
+  .finding { border: 1px solid var(--border); border-left-width: 4px; border-radius: 8px; padding: 12px 14px;
+             margin-top: 12px; background: var(--surface); }
+  .finding.high { border-left-color: var(--high); } .finding.medium { border-left-color: var(--med); }
+  .finding.low { border-left-color: var(--low); } .finding.info { border-left-color: var(--info); }
+  .f-head { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+  .f-head .badge { font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 6px; padding: 2px 8px; }
+  .f-head .rule { font: 600 13px var(--mono); }
+  .f-head .loc { margin-left: auto; font: 13px var(--mono); color: var(--muted); }
+  .f-title { margin: 6px 0 2px; font-weight: 600; }
+  .f-msg { margin: 0; overflow-wrap: anywhere; }
+  pre.snippet { margin: 10px 0 0; padding: 8px 0; background: var(--code-bg); border-radius: 6px;
+                overflow-x: auto; font: 12.5px/1.5 var(--mono); }
+  pre.snippet span { display: block; padding: 0 10px; white-space: pre; }
+  pre.snippet span.hit { background: var(--mark); }
+  pre.snippet i { font-style: normal; color: var(--muted); display: inline-block; width: 3.5em; user-select: none; }
+  details { margin-top: 8px; }
+  details summary { cursor: pointer; color: var(--muted); font-size: 13px; }
+  details dl { margin: 6px 0 0; font-size: 14px; }
+  details dt { font-weight: 600; margin-top: 6px; }
+  details dd { margin: 0; color: var(--muted); }
+  .rules-table { width: 100%; border-collapse: collapse; font-size: 13.5px; margin-top: 8px; }
+  .rules-table th, .rules-table td { text-align: left; padding: 6px 8px; border-top: 1px solid var(--border); vertical-align: top; }
+  .rules-table td:first-child { font-family: var(--mono); white-space: nowrap; }
+  .table-wrap { overflow-x: auto; }
+  [hidden] { display: none !important; }
+  @media (max-width: 600px) { .f-head .loc { margin-left: 0; width: 100%; } }
+</style>
+</head>
+<body>
+<main>
+  <header>
+    <h1>XRLint <small id="version"></small></h1>
+    <p>Check A-Frame / WebXR pages for security-sensitive UI properties (USENIX Security 2025, “Shadowed Realities”).</p>
+  </header>
+
+  <section class="card" aria-label="Input">
+    <div class="tabs" role="tablist">
+      <button class="tab" role="tab" id="tab-paste" aria-selected="true">Paste HTML</button>
+      <button class="tab" role="tab" id="tab-upload" aria-selected="false">Upload files</button>
+    </div>
+
+    <div id="panel-paste">
+      <textarea id="source" spellcheck="false" placeholder="Paste the HTML of an A-Frame / WebXR page here…"></textarea>
+    </div>
+
+    <div id="panel-upload" hidden>
+      <div class="drop" id="drop">
+        Drop .html and .js files here, or <label>choose files<input type="file" id="pickFiles" multiple accept=".html,.htm,.js,.mjs"></label>
+        or <label>choose a folder<input type="file" id="pickFolder" webkitdirectory multiple></label>.
+        <div class="note">Keep a page and its local scripts together so &lt;script src="…"&gt; links resolve.</div>
+      </div>
+      <ul id="fileList"></ul>
+    </div>
+
+    <div class="row">
+      <button class="primary" id="scan">Check</button>
+      <button class="secondary" id="example">Load example</button>
+      <span class="spacer"></span>
+      <span class="note">Files are scanned on the server running XRLint and deleted right after.</span>
+    </div>
+    <div class="error" id="error" role="alert" hidden></div>
+  </section>
+
+  <section class="card" id="results" aria-live="polite" hidden>
+    <div class="summary">
+      <strong id="pageSummary"></strong>
+      <span class="spacer" style="flex:1"></span>
+      <label class="note" for="minSev">Show</label>
+      <select id="minSev">
+        <option value="0">all findings</option>
+        <option value="1" selected>low and above</option>
+        <option value="2">medium and above</option>
+        <option value="3">high only</option>
+      </select>
+    </div>
+    <div class="summary" id="counts" style="margin-top:10px"></div>
+    <div id="findings"></div>
+    <p class="note" style="margin-top:16px">A finding means a risky UI property is used, not that the page is malicious. Every property also has legitimate uses.</p>
+  </section>
+
+  <section class="card">
+    <details id="rulesBox">
+      <summary style="font-size:15px;color:var(--text);font-weight:600">What XRLint checks (rules)</summary>
+      <div class="table-wrap"><table class="rules-table"><thead><tr><th>Rule</th><th>What it flags</th><th>Legitimate use</th></tr></thead><tbody id="rulesBody"></tbody></table></div>
+    </details>
+  </section>
+</main>
+
+<script>
+const SEV = { info: 0, low: 1, medium: 2, high: 3 };
+const EXAMPLE = `<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"><\/script>
+</head>
+<body>
+  <!-- The opaque "door" is not a ray target, so clicks on it reach the ad behind it. -->
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor raycaster="objects: .clickable" position="0 0 -1"></a-entity>
+    </a-entity>
+    <a-plane id="door" position="0 1.5 -3" width="2" height="2" color="#8B5A2B"></a-plane>
+    <a-box class="clickable" id="promo" position="0 1.5 -4" width="0.8" height="0.8" depth="0.2"></a-box>
+  </a-scene>
+</body>
+</html>
+`;
+
+const $ = (id) => document.getElementById(id);
+let mode = "paste";
+let uploaded = [];          // [{name, content}]
+let lastFiles = {};         // name -> content, for code snippets
+let lastReport = null;
+
+function el(tag, attrs = {}, ...children) {
+  const n = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") n.className = v; else n.setAttribute(k, v);
+  }
+  for (const c of children) if (c != null) n.append(c);
+  return n;
+}
+
+function setMode(m) {
+  mode = m;
+  $("tab-paste").setAttribute("aria-selected", m === "paste");
+  $("tab-upload").setAttribute("aria-selected", m === "upload");
+  $("panel-paste").hidden = m !== "paste";
+  $("panel-upload").hidden = m !== "upload";
+}
+$("tab-paste").onclick = () => setMode("paste");
+$("tab-upload").onclick = () => setMode("upload");
+
+$("example").onclick = () => { setMode("paste"); $("source").value = EXAMPLE; scan(); };
+
+async function addFiles(fileList) {
+  const wanted = [...fileList].filter(f => /\.(html?|m?js)$/i.test(f.name));
+  for (const f of wanted) {
+    const name = f.webkitRelativePath || f.name;
+    uploaded = uploaded.filter(u => u.name !== name);
+    uploaded.push({ name, content: await f.text() });
+  }
+  $("fileList").replaceChildren(...uploaded.map(u => el("li", {}, u.name)));
+  if (wanted.length === 0) showError("No .html or .js files found in that selection.");
+  else hideError();
+}
+$("pickFiles").onchange = (e) => addFiles(e.target.files);
+$("pickFolder").onchange = (e) => addFiles(e.target.files);
+const drop = $("drop");
+drop.ondragover = (e) => { e.preventDefault(); drop.classList.add("over"); };
+drop.ondragleave = () => drop.classList.remove("over");
+drop.ondrop = (e) => { e.preventDefault(); drop.classList.remove("over"); addFiles(e.dataTransfer.files); };
+
+function showError(msg) { $("error").textContent = msg; $("error").hidden = false; }
+function hideError() { $("error").hidden = true; }
+
+async function scan() {
+  hideError();
+  let files;
+  if (mode === "paste") {
+    const text = $("source").value;
+    if (!text.trim()) return showError("Paste some HTML first, or click “Load example”.");
+    files = [{ name: "pasted-page.html", content: text }];
+  } else {
+    if (!uploaded.length) return showError("Choose or drop at least one .html or .js file.");
+    files = uploaded;
+  }
+  const btn = $("scan");
+  btn.disabled = true; btn.textContent = "Checking…";
+  try {
+    const res = await fetch("/api/scan", {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ files }),
+    });
+    const data = await res.json().catch(() => ({ error: `server returned ${res.status}` }));
+    if (!res.ok) throw new Error(data.error || `server returned ${res.status}`);
+    lastFiles = Object.fromEntries(files.map(f => [f.name.replace(/\\/g, "/").replace(/^\.?\//, ""), f.content]));
+    lastReport = data;
+    render();
+  } catch (err) {
+    showError("Could not check the page: " + err.message);
+  } finally {
+    btn.disabled = false; btn.textContent = "Check";
+  }
+}
+$("scan").onclick = scan;
+$("minSev").onchange = render;
+
+function snippet(file, line) {
+  const text = lastFiles[file];
+  if (text == null || !line) return null;
+  const lines = text.split(/\r?\n/);
+  const from = Math.max(1, line - 2), to = Math.min(lines.length, line + 2);
+  const pre = el("pre", { class: "snippet" });
+  for (let i = from; i <= to; i++) {
+    pre.append(el("span", i === line ? { class: "hit" } : {}, el("i", {}, String(i)), lines[i - 1]));
+  }
+  return pre;
+}
+
+function render() {
+  const r = lastReport;
+  if (!r) return;
+  const min = Number($("minSev").value);
+  const shown = r.findings.filter(f => SEV[f.severity] >= min)
+    .sort((a, b) => SEV[b.severity] - SEV[a.severity] || a.file.localeCompare(b.file) || a.line - b.line);
+
+  const htmlPages = r.pages.filter(p => /\.html?$/i.test(p.path));
+  const flagged = htmlPages.filter(p => p.alarm).length;
+  $("pageSummary").textContent =
+    `${htmlPages.length} page(s), ${r.pages.length - htmlPages.length} standalone script(s) checked — ` +
+    `${flagged} page(s) with a medium or high finding`;
+
+  const counts = { high: 0, medium: 0, low: 0, info: 0 };
+  for (const f of r.findings) counts[f.severity]++;
+  $("counts").replaceChildren(...Object.entries(counts).map(([s, n]) =>
+    el("span", { class: `chip sev-${s}` }, `${n} ${s}`)));
+
+  const box = $("findings");
+  const nodes = [];
+  if (htmlPages.length && !htmlPages.some(p => p.is_xr)) {
+    nodes.push(el("p", { class: "note" }, "No <a-scene> was found, so scene rules did not run. XRLint targets A-Frame pages."));
+  }
+  for (const e of r.errors) nodes.push(el("div", { class: "error" }, `${e.path}: ${e.error}`));
+  if (!shown.length) {
+    nodes.push(el("p", {}, r.findings.length
+      ? "No findings at this level. Lower the filter to see the rest."
+      : "No risky UI properties found."));
+  }
+  for (const f of shown) {
+    nodes.push(el("article", { class: `finding ${f.severity}` },
+      el("div", { class: "f-head" },
+        el("span", { class: `badge sev-${f.severity}` }, f.severity),
+        el("span", { class: "rule" }, f.rule),
+        el("span", { class: "loc" }, `${f.file}:${f.line}`)),
+      el("div", { class: "f-title" }, `${f.property} · ${f.title}`),
+      el("p", { class: "f-msg" }, f.message),
+      f.page ? el("div", { class: "note" }, `loaded by ${f.page}`) : null,
+      snippet(f.file, f.line),
+      el("details", {},
+        el("summary", {}, "Why this is risky"),
+        el("dl", {},
+          el("dt", {}, "Risk"), el("dd", {}, f.why),
+          el("dt", {}, "Legitimate use"), el("dd", {}, f.legitimate_uses)))));
+  }
+  box.replaceChildren(...nodes);
+  $("results").hidden = false;
+}
+
+fetch("/api/rules").then(r => r.json()).then(d => {
+  $("version").textContent = "v" + d.version;
+  $("rulesBody").replaceChildren(...d.rules.map(r =>
+    el("tr", {}, el("td", {}, r.id), el("td", {}, r.title), el("td", {}, r.legit))));
+}).catch(() => {});
+</script>
+</body>
+</html>

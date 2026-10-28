@@ -1,0 +1,30 @@
+{
+  "source": "github.com/aframevr/aframe @ 022bcc5f (2026-07-13), folder examples/",
+  "html_pages": 119,
+  "xr_pages": 104,
+  "standalone_js": 3,
+  "xr_pages_with_medium_or_high": 11,
+  "findings_by_rule_and_severity": {
+    "P1-third-party-script|info": 33,
+    "P10-render-order|low": 6,
+    "P2-js-transparency|high": 1,
+    "P2-js-transparency|low": 24,
+    "P2-transparent-interactive|medium": 8,
+    "P3-synthetic-input|high": 1,
+    "P3-synthetic-input|medium": 1,
+    "P4-same-space-overlap|high": 3,
+    "P5-unvalidated-click|low": 28,
+    "P6-dynamic-cursor|high": 21,
+    "P6-dynamic-cursor|medium": 8,
+    "P8-aux-screen-activity|low": 2,
+    "P9-mode-listener|info": 13
+  },
+  "xr_pages_alarmed_by_rule": {
+    "P6-dynamic-cursor": 9,
+    "P3-synthetic-input": 2,
+    "P2-transparent-interactive": 2,
+    "P2-js-transparency": 1,
+    "P4-same-space-overlap": 1
+  },
+  "errors": []
+}

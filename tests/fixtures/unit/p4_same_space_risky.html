@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+</head>
+<body>
+  <!-- Ad and bait box occupy exactly the same space; only the ad is a ray target. -->
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor raycaster="objects: .clickable" position="0 0 -1"></a-entity>
+    </a-entity>
+    <a-box class="clickable" id="hidden-ad" position="0 1.4 -3" width="1" height="1" depth="1"></a-box>
+    <a-box id="treasure" position="0 1.4 -3" width="1" height="1" depth="1" color="gold"></a-box>
+  </a-scene>
+</body>
+</html>

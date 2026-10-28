@@ -1,0 +1,21 @@
+{
+  "source": "aframevr/a-painter @ 0deba1f 2022-10-26",
+  "html_pages": 1,
+  "xr_pages": 1,
+  "standalone_js": 27,
+  "xr_pages_with_medium_or_high": 0,
+  "medium_or_high_findings": 4,
+  "files_with_medium_or_high": 1,
+  "note": "Scripts not referenced by any scanned HTML page (e.g. bundled app sources) are scanned standalone, so their findings count in files_with_medium_or_high but not in xr_pages_*.",
+  "findings_by_rule_and_severity": {
+    "P1-third-party-script|info": 3,
+    "P2-js-transparency|high": 1,
+    "P2-js-transparency|low": 7,
+    "P6-dynamic-cursor|high": 3,
+    "P6-dynamic-cursor|low": 3,
+    "P8-aux-screen-activity|low": 1,
+    "P9-mode-listener|info": 3
+  },
+  "xr_pages_alarmed_by_rule": {},
+  "errors": []
+}

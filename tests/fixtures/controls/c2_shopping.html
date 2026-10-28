@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <title>Shop (benign)</title>
+</head>
+<body>
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor="fuse: false" raycaster="objects: .clickable" position="0 0 -1"
+                geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.015" material="color: black"></a-entity>
+    </a-entity>
+    <a-image class="clickable product" data-price="25" position="-1.5 1.6 -3" width="1" height="1" src="#shirt"></a-image>
+    <a-image class="clickable product" data-price="60" position="0 1.6 -3" width="1" height="1" src="#shoes"></a-image>
+    <a-image class="clickable product" data-price="15" position="1.5 1.6 -3" width="1" height="1" src="#wallet"></a-image>
+    <a-plane class="clickable" id="checkout" position="0 0.6 -2.5" width="1" height="0.3" color="#4CC3D9"></a-plane>
+    <a-text id="cart" value="Cart: 0" position="-0.5 2.6 -3"></a-text>
+  </a-scene>
+  <script>
+    var total = 0;
+    document.querySelectorAll('.product').forEach(function (p) {
+      p.addEventListener('mouseenter', function () { p.setAttribute('scale', '1.2 1.2 1.2'); });
+      p.addEventListener('mouseleave', function () { p.setAttribute('scale', '1 1 1'); });
+      p.addEventListener('click', function () {
+        total += parseInt(p.getAttribute('data-price'), 10);
+        document.querySelector('#cart').setAttribute('value', 'Cart: ' + total);
+      });
+    });
+    document.querySelector('#checkout').addEventListener('click', function () {
+      document.querySelector('#cart').setAttribute('value', 'Thanks! Paid ' + total);
+    });
+  </script>
+</body>
+</html>

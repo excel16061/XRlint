@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+</head>
+<body>
+  <a-scene>
+    <a-entity camera look-controls position="0 1.6 0">
+      <a-entity cursor raycaster="objects: .clickable" position="0 0 -1"></a-entity>
+    </a-entity>
+    <a-box class="clickable" id="play" position="0 1.5 -3"></a-box>
+    <a-image class="clickable" id="ad-banner" position="0 1.6 4" width="2" height="1" src="#banner"></a-image>
+  </a-scene>
+</body>
+</html>

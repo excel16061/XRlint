@@ -1,0 +1,29 @@
+{
+  "source": "aframevr/aframe @ 022bcc5 2026-07-13, examples/",
+  "html_pages": 119,
+  "xr_pages": 104,
+  "standalone_js": 3,
+  "xr_pages_with_medium_or_high": 3,
+  "medium_or_high_findings": 13,
+  "files_with_medium_or_high": 4,
+  "note": "Scripts not referenced by any scanned HTML page (e.g. bundled app sources) are scanned standalone, so their findings count in files_with_medium_or_high but not in xr_pages_*.",
+  "findings_by_rule_and_severity": {
+    "P1-third-party-script|info": 33,
+    "P10-render-order|low": 6,
+    "P2-js-transparency|low": 25,
+    "P2-transparent-interactive|medium": 8,
+    "P3-synthetic-input|high": 1,
+    "P3-synthetic-input|medium": 1,
+    "P4-same-space-overlap|high": 3,
+    "P5-unvalidated-click|low": 28,
+    "P6-dynamic-cursor|low": 29,
+    "P8-aux-screen-activity|low": 2,
+    "P9-mode-listener|info": 13
+  },
+  "xr_pages_alarmed_by_rule": {
+    "P3-synthetic-input": 2,
+    "P2-transparent-interactive": 2,
+    "P4-same-space-overlap": 1
+  },
+  "errors": []
+}

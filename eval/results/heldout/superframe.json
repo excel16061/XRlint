@@ -1,0 +1,27 @@
+{
+  "source": "supermedium/superframe @ a46f0a4 2026-05-29",
+  "html_pages": 103,
+  "xr_pages": 66,
+  "standalone_js": 141,
+  "xr_pages_with_medium_or_high": 1,
+  "medium_or_high_findings": 9,
+  "files_with_medium_or_high": 3,
+  "note": "Scripts not referenced by any scanned HTML page (e.g. bundled app sources) are scanned standalone, so their findings count in files_with_medium_or_high but not in xr_pages_*.",
+  "findings_by_rule_and_severity": {
+    "P1-third-party-script|info": 95,
+    "P10-render-order|low": 11,
+    "P13-scene-capture|medium": 5,
+    "P2-js-transparency|low": 5,
+    "P2-transparent-interactive|medium": 3,
+    "P3-synthetic-input|medium": 1,
+    "P5-unvalidated-click|low": 6,
+    "P6-dynamic-cursor|low": 3,
+    "P7-blind-spot|low": 2,
+    "P8-aux-screen-activity|low": 1,
+    "P9-mode-listener|info": 2
+  },
+  "xr_pages_alarmed_by_rule": {
+    "P2-transparent-interactive": 1
+  },
+  "errors": []
+}

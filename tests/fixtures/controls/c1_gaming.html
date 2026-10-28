@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <title>Shooting gallery (benign)</title>
+  <script>
+    AFRAME.registerComponent('shootable', {
+      init: function () {
+        var el = this.el;
+        el.addEventListener('click', function () {
+          document.querySelector('#score').emit('scored');
+          el.setAttribute('visible', false);
+          setTimeout(function () {
+            el.setAttribute('position', {x: Math.random() * 4 - 2, y: 1 + Math.random(), z: -4});
+            el.setAttribute('visible', true);
+          }, 800);
+        });
+      }
+    });
+  </script>
+</head>
+<body>
+  <a-scene cursor="rayOrigin: mouse" raycaster="objects: .target">
+    <a-entity camera look-controls wasd-controls position="0 1.6 0"></a-entity>
+    <a-entity laser-controls="hand: right" raycaster="objects: .target"></a-entity>
+    <a-sphere class="target" shootable position="-1 1.5 -4" radius="0.3" color="#EF2D5E"></a-sphere>
+    <a-sphere class="target" shootable position="0 2 -5" radius="0.3" color="#EF2D5E"></a-sphere>
+    <a-sphere class="target" shootable position="1 1.2 -4" radius="0.3" color="#EF2D5E"></a-sphere>
+    <a-text id="score" value="Score: 0" position="-1 3 -4"></a-text>
+    <a-plane rotation="-90 0 0" width="20" height="20" color="#7BC8A4"></a-plane>
+    <a-sky color="#ECECEC"></a-sky>
+  </a-scene>
+</body>
+</html>
