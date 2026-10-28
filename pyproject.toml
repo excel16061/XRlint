@@ -1,0 +1,25 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xrlint"
+version = "0.1.0"
+description = "Static checker for risky UI properties in A-Frame/WebXR pages"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+dependencies = ["beautifulsoup4>=4.9", "soupsieve>=2.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+xrlint = "xrlint.cli:main"
+xrlint-web = "xrlint.web:main"
+
+[tool.setuptools]
+packages = ["xrlint"]
+
+[tool.setuptools.package-data]
+xrlint = ["static/*.html"]
