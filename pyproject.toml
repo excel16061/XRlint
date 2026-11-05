@@ -5,11 +5,18 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "xrlint"
 version = "0.1.0"
+authors = [{name = "Syed Omer Ali", email = "omer@exetech.dev"}]
+maintainers = [{name = "Syed Omer Ali", email = "omer@exetech.dev"}]
 description = "Static checker for risky UI properties in A-Frame/WebXR pages"
 readme = "README.md"
 requires-python = ">=3.9"
 license = {text = "MIT"}
 dependencies = ["beautifulsoup4>=4.9", "soupsieve>=2.0"]
+
+[project.urls]
+Homepage = "https://exetech.dev"
+Repository = "https://github.com/excel16061/XRlint"
+Issues = "https://github.com/excel16061/XRlint/issues"
 
 [project.optional-dependencies]
 dev = ["pytest>=7"]

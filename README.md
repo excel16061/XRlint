@@ -1,5 +1,13 @@
 # XRLint
 
+**Author and maintainer:** Syed Omer Ali
+
+**Contact:** [omer@exetech.dev](mailto:omer@exetech.dev)
+
+**Website:** https://exetech.dev
+
+**Repository:** https://github.com/excel16061/XRlint
+
 A static checker for A-Frame / WebXR pages that flags the **security-sensitive UI properties**
 described in *Shadowed Realities: An Investigation of UI Attacks in WebXR*
 (Mukherjee, Mohamed, Arunasalam, Farrukh, Celik — USENIX Security 2025).
@@ -28,7 +36,8 @@ Requires Python 3.9+ and two small dependencies (`beautifulsoup4`, `soupsieve`).
 
 ```bash
 # 1. Get the code
-git clone https://github.com/haniyakonain/xrlint.git && cd xrlint
+git clone https://github.com/excel16061/XRlint.git
+cd XRlint
 
 # 2. Create an isolated environment and install XRLint into it
 python3 -m venv .venv
@@ -303,4 +312,3 @@ A-Frame examples. They are the reason the "after" columns above are optimistic.
   Third-Party Ads*, USENIX Security 2021.
 - A-Frame: https://github.com/aframevr/aframe (raycaster and cursor source read for the
   behaviour notes above).
-
