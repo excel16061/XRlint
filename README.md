@@ -312,3 +312,8 @@ A-Frame examples. They are the reason the "after" columns above are optimistic.
   Third-Party Ads*, USENIX Security 2021.
 - A-Frame: https://github.com/aframevr/aframe (raycaster and cursor source read for the
   behaviour notes above).
+
+
+## Research progress — November 2026
+
+XRlint is an ongoing WebXR UI security research prototype. The latest research progress, evaluation interpretation, limitations and next experiments are documented in [the November 2026 research update](docs/research-update-2026-11.md). The reported 12/14 attack-page detection result comes from self-authored fixtures, **not** independent real-world attack validation. The original *Shadowed Realities* artifact has not yet been evaluated.
